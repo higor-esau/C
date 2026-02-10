@@ -140,21 +140,18 @@ void printQueueFirstToLast(const Queue* q){
     printf("\n");
 }
 
+Queue* initQueue(int value){
+    Queue* q = calloc(1, sizeof(Queue));
+    addBlockFirstQueue(q, value);
+    return q;
+}
 
 int main(){
 
-    Queue* q = calloc(1, sizeof(Queue));
-    addBlockLastQueue(q, 5);
-    addBlockLastQueue(q, 6);
+    Queue* q = initQueue(0);
+    addBlockFirstQueue(q, 1);
     addBlockFirstQueue(q, 2);
-    popFirstQueue(q);
-    popFirstQueue(q);
-    popFirstQueue(q);
-    addBlockLastQueue(q, 6);
-    addBlockFirstQueue(q, 8);
-    addBlockLastQueue(q, 4);
-    addBlockFirstQueue(q, 16);
-    popLastQueue(q);
+    
 
     printQueueFirstToLast(q);
 
