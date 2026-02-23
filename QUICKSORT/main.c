@@ -1,62 +1,46 @@
 #include <stdio.h>
 
-// a ultima vez que fiz um quicksort, foi no primeiro periodo, mas como eu sei a logica ainda, vou tentar escrever, não sei se irei conseguir mas isso vai subir por git, eu fazendo certo ou não.
-
-void troca(int *a, int *b){
+void swap(int *a, int *b){
     int temp = *a;
     *a = *b;
     *b = temp;
 }
 
-int particionar(int lista[], int inicio, int fim){
-    int indicePivo = fim;
-    int i = inicio -1;
-    int j = inicio;
-
-    while(j < fim){
-        if(lista[j]< lista[indicePivo]){
+int part(int list[], int start, int end){
+    int indicePivo = end;
+    int i = start -  1;
+    for(int j = start ; j < end ; j++){
+        if(list[j] < list[indicePivo]){
             i++;
-            troca(&lista[j], &lista[i]);
+            swap(&list[i], &list[j]);
         }
-        j++;
     }
     i++;
-    troca(&lista[i], &lista[indicePivo]);
+    swap(&list[i], &list[end]);
     return i;
-
 }
 
-void quicksort(int lista[], int inicio, int fim){
-    if(inicio < fim){
-        int indicePivo = particionar(lista, inicio, fim);
-        quicksort(lista, inicio, indicePivo-1);
-        quicksort(lista, indicePivo+1, fim);
+void quicksort(int list[], int inicio, int end){
+    if(inicio < end){
+        int indice = part(list, inicio, end);
+        quicksort(list, inicio, indice-1);
+        quicksort(list, indice+1, end);
     }
 }
-
 
 
 
 int main(){
 
-    int x=2, y=3;
-    printf("%d, %d\n", x, y);
-    troca(&x,&y);
-    printf("%d, %d\n", x, y);
+    int list[] = {12,2,9,54,626,-51,5,8,1,22,52,36,33,33,38,12,88888,100000};
 
-    int list[] = {4 ,8, 9, 9, 9, 3, 2, 5};
-    for(int i=0; i<8 ; i++){
-        printf("%d ", list[i]);
+    int len = sizeof(list) / sizeof(int);
+    printf("\n\t%d\n", len);
+    quicksort(list, 0, len -1);
+
+    for(int i=0; i<len ; i++){
+        printf("%d -> ", list[i]);
     }
     printf("\n");
-
-    quicksort(list, 0, 7);
-
-    for(int i=0; i<8 ; i++){
-        printf("%d ", list[i]);
-    }
-    printf("\n");
-
-
     return 0;
 }
